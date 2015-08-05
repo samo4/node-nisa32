@@ -7,7 +7,7 @@
  <body>
             <h1>NODE.JS INTERACTIVE IO</h1>
             
-            <input type="text" id="visaaddress" value="GPIB0::22::INSTR" />
+            <input type="text" id="visaaddress" value="GPIB0::12::INSTR" />
             <input type="text" id="command" value="*IDN?" />
             <button>SEND</button>
             <h3>Receive Message</h3>
@@ -29,5 +29,13 @@
                 });
                 
             </script>
+			<p>Common commands for HP 662xA</p>
+			<ul>
+			    <li>ID?</li>
+				<li>VOUT? 1</li>
+				<li>output 2 to 450mA:  ISET 2,.450</li>
+				<li>To turn off output 1: OUT 1,0</li>
+				<li>common: VSET, ISET, VOUT?, IOUT?, OUT, OVSET, and OCP</li>
+			</ul>
  </body>
 </html>

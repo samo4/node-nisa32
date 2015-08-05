@@ -15,9 +15,9 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-var visa32test = require('./visa32test.js');
+var visa32test = require('./nisa32.js');
 
-//visa32test.Visa32TestQuery('GPIB0::22::INSTR','*IDN?');
+// visa32test.Visa32TestQuery('GPIB0::12::INSTR','*IDN?');
 
 app.get('/',function(req,res){
     res.sendfile('index.html');
@@ -25,8 +25,13 @@ app.get('/',function(req,res){
 var rcvMsg;
 io.on('connection',function(socket){
     socket.on('sendmsg',function(msg){
-        rcvMsg = visa32test.Visa32TestQuery(msg.addr,msg.cmd);
-        io.emit('recvmsg', rcvMsg);
+        rcvMsg = visa32test.query(msg.addr,msg.cmd, function(err, result) {
+				if (err)
+					io.emit('recvmsg', err);
+				else
+					io.emit('recvmsg', result);
+			}
+		);
     });
 });
 

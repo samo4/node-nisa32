@@ -1,0 +1,35 @@
+{
+  "name": "node-nisa32",
+  "version": "1.0.0",
+  "description": "A simple npm module for interfacing with GPIB instruments ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samofab/node-nisa32.git"
+  },
+  "keywords": [
+    "gpib",
+    "hpib"
+  ],
+  "author": "Samo Fabcic <samo.fabcic@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samofab/node-nisa32/issues"
+  },
+  "homepage": "https://github.com/samofab/node-nisa32#readme",
+  "dependencies": {
+    "express": "^4.13.3",
+    "ffi": "^1.3.2",
+    "http": "0.0.0",
+    "ref": "^1.0.2",
+    "ref-array": "^1.1.1",
+    "socket.io": "^1.3.6"
+  },
+  "files": {
+	"nisa32.js"
+  }
+}
