@@ -1,6 +1,7 @@
 var ref = require('ref');
 var ffi = require('ffi');
 var ArrayType = require('ref-array');
+var assert = require("assert");
 
 
 // typedef
@@ -33,9 +34,11 @@ function nisa32() {
 }
 */
 
-exports.query = function (visaAddress, queryString, callback){
-	return nisaQuery(visaAddress, queryString, callback);
-};
+module.exports = {
+	query: function (visaAddress, queryString, callback){
+		return nisaQuery(visaAddress, queryString, callback);
+	}
+}
 
 function nisaQuery(visaAddress, queryString, callback){
 	assert.equal(typeof (visaAddress), 'string', "argument 'visaAddress' must be a string");
