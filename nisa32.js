@@ -1,3 +1,5 @@
+'use strict';
+
 var ref = require('ref');
 var ffi = require('ffi');
 var ArrayType = require('ref-array');
@@ -20,7 +22,12 @@ var visa32 = ffi.Library('visa32', {
 });
 
 /* idea:
-module.exports = function(visaAddress) {
+var self = module.exports 
+(for private parts to have direct access to functions)
+
+
+idea:
+ module.exports = function(visaAddress) {
   return new nisa32(visaAddress);
 }
 
@@ -32,6 +39,35 @@ function nisa32() {
   self.init = function(options, callback) { ... }
   function private() { ... }
 }
+*/
+
+/* plan:
+
+var nisa32 = require('./nisa32.js');
+var gpib12 = nisa32('GPIB0::12::INSTR');
+gpib12.query(cmd, callback);
+
+module.exports = createInstrument;
+
+function createInstrument (visaAddress) {
+  assert.equal(typeof (visaAddress), 'string', "argument 'visaAddress' must be a string");
+}
+
+
+----- OR
+
+function Nisa32(visaAddress) {
+  this.visaAddress = visaAddress;
+}
+
+Nisa32.prototype.query = function(queryString, callback) {
+  // do stuff on visaAddress with queryString
+};
+
+module.exports = Nisa32;
+
+
+
 */
 
 module.exports = {
