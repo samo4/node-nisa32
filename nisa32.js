@@ -38,7 +38,12 @@ exports.query = function (visaAddress, queryString, callback){
 };
 
 function nisaQuery(visaAddress, queryString, callback){
-
+	assert.equal(typeof (visaAddress), 'string', "argument 'visaAddress' must be a string");
+	assert.equal(typeof (queryString), 'string', "argument 'queryString' must be a string");
+	assert.equal(typeof (callback), 'function');
+	// assert.equal(typeof (timeout), 'number', "argument 'timeout' must be a number");
+    // assert.ok(!isNaN(timeout) && timeout > 0, "argument 'timeout' must be a positive integer");
+	
 	var resourceManager = '0';
 	var viError = 0;
 	var session = 0;
