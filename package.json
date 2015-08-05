@@ -15,21 +15,21 @@
     "gpib",
     "hpib"
   ],
-  "author": "Samo Fabcic <samo.fabcic@gmail.com>",
+  "author": "Samo Fabcic <samo@absint.si>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/samofab/node-nisa32/issues"
   },
   "homepage": "https://github.com/samofab/node-nisa32#readme",
-  "dependencies": {
+  "devDependencies": {
     "express": "^4.13.3",
-    "ffi": "^1.3.2",
-    "http": "0.0.0",
-    "ref": "^1.0.2",
-    "ref-array": "^1.1.1",
+	"http": "0.0.0",
     "socket.io": "^1.3.6"
   },
-  "files": {
-	"nisa32.js"
-  }
+  "dependencies": {
+    "ffi": "^1.3.2",
+    "ref": "^1.0.2",
+    "ref-array": "^1.1.1"
+  },
+  "files": ["nisa32.js"]
 }
