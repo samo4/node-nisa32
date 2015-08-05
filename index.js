@@ -20,7 +20,7 @@ var visa32test = require('./nisa32.js');
 // visa32test.Visa32TestQuery('GPIB0::12::INSTR','*IDN?');
 
 app.get('/',function(req,res){
-    res.sendfile('index.html');
+    res.sendFile('index.html');
 });
 var rcvMsg;
 io.on('connection',function(socket){
