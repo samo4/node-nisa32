@@ -1,7 +1,7 @@
 {
   'targets': [
     {
-      'target_name': 'visaport',
+      'target_name': 'nisa32',
       'sources': [
         'src/visaport.cpp',
       ],

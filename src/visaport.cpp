@@ -50,7 +50,6 @@ void EIO_AfterOpen(uv_work_t* req) {
   } else {
     argv[0] = NanUndefined();
     argv[1] = NanNew<v8::Int32>(data->result);
-    AfterOpenSuccess(data->result);
   }
 
   data->callback->Call(2, argv);
@@ -59,7 +58,6 @@ void EIO_AfterOpen(uv_work_t* req) {
   delete data;
   delete req;
 }
-
 
 NAN_METHOD(Query) {
   NanScope();
@@ -211,7 +209,7 @@ extern "C" {
   {
     NanScope();
     NODE_SET_METHOD(target, "open", Open);
-	NODE_SET_METHOD(target, "query", Query);
+	  NODE_SET_METHOD(target, "query", Query);
     NODE_SET_METHOD(target, "close", Close);
     NODE_SET_METHOD(target, "list", List);
   }

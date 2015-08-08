@@ -16,15 +16,40 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 var nisa = require('./lib/nisa32.js');
-nisa.list(function(err, res) { 
+/*nisa.list(function(err, res) { 
   if ( err ) {
     console.log('failed to open for list: '+ err);
   } else {
     console.log(res); 
   }
+});*/
+
+
+var VisaPort = nisa.VisaPort;
+var instrument11 = new VisaPort("GPIB0::11::INSTR", {
+  bufferSize: 256
 });
 
+instrument11.open(function (error) {
+  if ( error ) {
+    console.log('failed to open: '+ error);
+  } else {
+    console.log('dcl');
+	  instrument11.dcl(function(err, res) { 
+      if ( error ) {
+        console.log('failed to open: '+ error);
+      } else {
+        console.log(res);
+        instrument11.query("J0", function(err, res) {
+            console.log(err);
+            console.log(res);
+        });
+      }
+    });
+  }
+});
 
+/*
 var VisaPort = nisa.VisaPort;
 var instrument12 = new VisaPort("GPIB0::12::INSTR", {
   bufferSize: 256
@@ -40,10 +65,6 @@ instrument12.open(function (error) {
     });
   }
 });
-
-
-
-// visa32test.Visa32TestQuery('GPIB0::12::INSTR','*IDN?');
 
 app.get('/',function(req,res){
     res.sendFile(__dirname + '/index.html');
@@ -64,3 +85,4 @@ io.on('connection',function(socket){
 http.listen(3000,function(){
     console.log('listen 3000 port');
 });
+*/

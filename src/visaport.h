@@ -19,7 +19,6 @@ void EIO_AfterList(uv_work_t* req);
 NAN_METHOD(Open);
 void EIO_Open(uv_work_t* req);
 void EIO_AfterOpen(uv_work_t* req);
-void AfterOpenSuccess(int fd);
 
 NAN_METHOD(Query);
 void EIO_Query(uv_work_t* req);
