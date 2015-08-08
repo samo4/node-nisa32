@@ -16,10 +16,16 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 var nisa = require('./lib/nisa32.js');
-nisa.list(function(res) { console.log(res); });
+nisa.list(function(err, res) { 
+  if ( err ) {
+    console.log('failed to open for list: '+ err);
+  } else {
+    console.log(res); 
+  }
+});
 
 
-var VisaPort = require('./lib/nisa32.js').VisaPort;
+var VisaPort = nisa.VisaPort;
 var instrument12 = new VisaPort("GPIB0::12::INSTR", {
   bufferSize: 256
 });
