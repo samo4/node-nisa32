@@ -15,17 +15,37 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-var visa32test = require('./nisa32.js');
+var nisa = require('./lib/nisa32.js');
+nisa.list(function(res) { console.log(res); });
+
+
+var VisaPort = require('./lib/nisa32.js').VisaPort;
+var instrument12 = new VisaPort("GPIB0::12::INSTR", {
+  bufferSize: 256
+});
+
+instrument12.open(function (error) {
+  if ( error ) {
+    console.log('failed to open: '+ error);
+  } else {
+    console.log('open');
+	instrument12.on('data', function(data) {
+      console.log('this shall not work for a long long time....:-) data received: ' + data);
+    });
+  }
+});
+
+
 
 // visa32test.Visa32TestQuery('GPIB0::12::INSTR','*IDN?');
 
 app.get('/',function(req,res){
-    res.sendFile('index.html');
+    res.sendFile(__dirname + '/index.html');
 });
 var rcvMsg;
 io.on('connection',function(socket){
     socket.on('sendmsg',function(msg){
-        rcvMsg = visa32test.query(msg.addr,msg.cmd, function(err, result) {
+        rcvMsg = instrument12.query(msg.cmd, function(err, result) {
 				if (err)
 					io.emit('recvmsg', err);
 				else

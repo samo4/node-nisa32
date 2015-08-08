@@ -7,8 +7,8 @@
  <body>
             <h1>NODE.JS INTERACTIVE IO</h1>
             
-            <input type="text" id="visaaddress" value="GPIB0::12::INSTR" />
-            <input type="text" id="command" value="*IDN?" />
+            <input type="text" id="visaaddress" value="GPIB0::12::INSTR not used" />
+            <input type="text" id="command" value="ID?" />
             <button>SEND</button>
             <h3>Receive Message</h3>
             <script src="/socket.io/socket.io.js"></script>
@@ -31,7 +31,7 @@
             </script>
 			<p>Common commands for HP 662xA</p>
 			<ul>
-			    <li>ID?</li>
+			    <li>ID? (instruments from this century use *IDN?)</li>
 				<li>VOUT? 1</li>
 				<li>output 2 to 450mA:  ISET 2,.450</li>
 				<li>To turn off output 1: OUT 1,0</li>
