@@ -52,16 +52,18 @@ instrument11.open(function (error) {
           instrument11.write("D4dvaX", function(err, res) {
               if ( !err ) 
                 console.log(res);
-          });*/
+          });
           instrument11.write("D4H1OX", function(err, res) {
               if ( !err ) 
                 console.log('OK' + res);
-          });        
-          /*
-          instrument11.query("D1X", function(err, res) {
-              if ( !err ) 
-                console.log(res);
-          });*/
+          });   */     
+          //G0D1X
+          //J0X: selftest
+          //instrument11.write(String.fromCharCode(13), function(err, res) {    });
+          instrument11.query("G0D1X", function(err, res) {  });
+          instrument11.readStatusByte(function(err, res) {  
+            console.log(res);
+          });
         }
       });
     });
