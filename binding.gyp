@@ -3,7 +3,7 @@
     {
       'target_name': 'nisa32',
       'sources': [
-        'src/visaport.cpp',
+        'src/nisa32c.cpp',
       ],
       'include_dirs': [
         '<!(node -e "require(\'nan\')")'
@@ -11,11 +11,6 @@
       'conditions': [
         ['OS=="win"',
           {
-            'sources': [
-              'src/visaport_win.cpp',
-              'src/win/disphelper.c',
-              'src/win/enumser.cpp',
-            ],
             'include_dirs': [
               'C:\Program Files\IVI Foundation\VISA\Win64\Include'
             ],
