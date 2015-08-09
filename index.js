@@ -30,6 +30,19 @@ var instrument11 = new VisaPort("GPIB0::11::INSTR", {
   bufferSize: 256
 });
 
+var instrument12 = new VisaPort("GPIB0::12::INSTR", {}, true, function (err, res) {
+  if ( err ) {
+    console.log('failed to open: '+ err);
+  } else {
+    instrument12.query("ID?", function(err, result) {
+				if (err)
+					 console.log('err on query: '+ err);
+				else
+					 console.log(result);
+			});
+  }
+});
+
 instrument11.open(function (error) {
   if ( error ) {
     console.log('failed to open: '+ error);
