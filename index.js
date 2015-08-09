@@ -30,33 +30,37 @@ var instrument11 = new VisaPort("GPIB0::11::INSTR", {
   bufferSize: 256
 });
 
+/*
 var instrument12 = new VisaPort("GPIB0::12::INSTR", {}, true, function (err, res) {
-  if ( err ) {
-    console.log('failed to open: '+ err);
-  } else {
+  if ( !err ) {
     instrument12.query("ID?", function(err, result) {
-				if (err)
-					 console.log('err on query: '+ err);
-				else
 					 console.log(result);
 			});
   }
-});
+});*/
 
 instrument11.open(function (error) {
-  if ( error ) {
-    console.log('failed to open: '+ error);
-  } else {
-    console.log('dcl');
-	  instrument11.dcl(function(err, res) { 
-      if ( error ) {
-        console.log('failed to open: '+ error);
-      } else {
-        console.log(res);
-        instrument11.query("J0", function(err, res) {
-            console.log(err);
-            console.log(res);
+  if ( !error ) {
+    console.log('now dcl');
+	  instrument11.clear(function(err, res) { 
+      if ( !err ) {/*
+        instrument11.write("D1X", function(err, res) {
+            if ( !err ) 
+              console.log(res);
         });
+        instrument11.write("D4dvaX", function(err, res) {
+            if ( !err ) 
+              console.log(res);
+        });*/
+        instrument11.write("D4HELLOX", function(err, res) {
+            if ( !err ) 
+              console.log(res);
+        });        
+        /*
+        instrument11.query("D1X", function(err, res) {
+            if ( !err ) 
+              console.log(res);
+        });*/
       }
     });
   }
