@@ -16,6 +16,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 var nisa = require('./lib/nisa32.js');
+var async = require('async');
 /*nisa.list(function(err, res) { 
   if ( err ) {
     console.log('failed to open for list: '+ err);
@@ -30,62 +31,59 @@ var instrument11 = new VisaPort("GPIB0::11::INSTR", {
   bufferSize: 256
 });
 
-/*
 var instrument12 = new VisaPort("GPIB0::12::INSTR", {}, true, function (err, res) {
   if ( !err ) {
-    instrument12.query("ID?", function(err, result) {
-					 console.log(result);
-			});
-  }
-});*/
-
-instrument11.open(function (error) {
-  if ( !error ) {
-    console.log('now dcl');
-    instrument11.ibsre(true,function(err, res) { 
-  	  instrument11.clear(function(err, res) { 
-        if ( !err ) {/*
-          instrument11.write("D1X", function(err, res) {
-              if ( !err ) 
-                console.log(res);
-          });
-          instrument11.write("D4dvaX", function(err, res) {
-              if ( !err ) 
-                console.log(res);
-          });
-          instrument11.write("D4H1OX", function(err, res) {
-              if ( !err ) 
-                console.log('OK' + res);
-          });   */     
-          //G0D1X
-          //J0X: selftest
-          //instrument11.write(String.fromCharCode(13), function(err, res) {    });
-          instrument11.query("G0D1X", function(err, res) {  });
-          instrument11.readStatusByte(function(err, res) {  
-            console.log(res);
-          });
-        }
+    async.series ([
+        function(callback) { instrument12.query("VSET1,1", callback) },
+        function(callback) { setTimeout(callback, 300) }, 
+        function(callback) { instrument12.query("VSET1,2", callback) },
+        function(callback) { setTimeout(callback, 300) }, 
+        function(callback) { instrument12.query("VSET1,3", callback) },
+        function(callback) { setTimeout(callback, 300) }, 
+        function(callback) { instrument12.query("VSET1,4", callback) },
+        function(callback) { setTimeout(callback, 300) }, 
+        function(callback) { instrument12.query("VSET1,5", callback) },
+        function(callback) { instrument12.readStatusByte(callback); },
+      ], function(err, res) {
+         if (err) { 
+           console.log('ERROR12');
+           console.log(err);
+         } else {
+           console.log('DONE12');
+           console.log(res);
+         }   
       });
-    });
   }
+});
+
+async.series ([
+  function(callback) { instrument11.open(callback); },
+  function(callback) { instrument11.ibsre(true, callback); },
+  function(callback) { instrument11.clear(callback); },
+  function(callback) { instrument11.write(String.fromCharCode(13), callback) },
+  function(callback) { setTimeout(callback, 500) }, 
+  function(callback) { instrument11.write("D4 1X", callback) },
+  function(callback) { setTimeout(callback, 500) }, 
+  function(callback) { instrument11.write("D4 2X", callback) },
+  function(callback) { setTimeout(callback, 500) }, 
+  function(callback) { instrument11.write("D4 3X", callback) },
+  function(callback) { setTimeout(callback, 500) }, 
+  function(callback) { instrument11.write("D4 4X", callback) },
+  function(callback) { setTimeout(callback, 500) }, 
+  function(callback) { instrument11.write("D0X", callback) },
+  function(callback) { instrument11.readStatusByte(callback); },
+  
+], function(err, res) {
+   if (err) { 
+     console.log('ERROR');
+     console.log(err);
+   } else {
+     console.log('DONE');
+     console.log(res);
+   }   
 });
 
 /*
-var VisaPort = nisa.VisaPort;
-var instrument12 = new VisaPort("GPIB0::12::INSTR", {
-  bufferSize: 256
-});
-
-instrument12.open(function (error) {
-  if ( error ) {
-    console.log('failed to open: '+ error);
-  } else {
-    console.log('open');
-	instrument12.on('data', function(data) {
-      console.log('this shall not work for a long long time....:-) data received: ' + data);
-    });
-  }
-});
 
 app.get('/',function(req,res){
     res.sendFile(__dirname + '/index.html');

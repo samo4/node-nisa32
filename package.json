@@ -10,11 +10,11 @@
     "build": "node-pre-gyp build"
   },
   "binary": {
-    "module_name" : "nisa32",
-    "module_path" : "./build/{module_name}/v{version}/{configuration}/{node_abi}-{platform}-{arch}/",
-    "remote_path" : "./{module_name}/v{version}/{configuration}/",
+    "module_name": "nisa32",
+    "module_path": "./build/{module_name}/v{version}/{configuration}/{node_abi}-{platform}-{arch}/",
+    "remote_path": "./{module_name}/v{version}/{configuration}/",
     "package_name": "{node_abi}-{platform}-{arch}.tar.gz",
-    "host"        : "https://nisa32.s3.amazonaws.com"
+    "host": "https://nisa32.s3.amazonaws.com"
   },
   "repository": {
     "type": "git",
@@ -36,17 +36,16 @@
     "socket.io": "^1.3.6"
   },
   "dependencies": {
-     "node-pre-gyp": "0.5.x",
-    "bindings": "1.2.1",
-    "async": "0.9.0",
-    "sf": "0.1.7",
-    "optimist": "~0.6.1",
-    "nan": "~1.3.0",
-    
     "assert": "^1.3.0",
+    "async": "^0.9.0",
+    "bindings": "1.2.1",
     "ffi": "^1.3.2",
+    "nan": "~1.3.0",
+    "node-pre-gyp": "0.5.x",
+    "optimist": "~0.6.1",
     "ref": "^1.0.2",
-    "ref-array": "^1.1.1"
+    "ref-array": "^1.1.1",
+    "sf": "0.1.7"
   },
   "files": [
     "nisa32.js"
