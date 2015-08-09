@@ -42,26 +42,28 @@ var instrument12 = new VisaPort("GPIB0::12::INSTR", {}, true, function (err, res
 instrument11.open(function (error) {
   if ( !error ) {
     console.log('now dcl');
-	  instrument11.clear(function(err, res) { 
-      if ( !err ) {/*
-        instrument11.write("D1X", function(err, res) {
-            if ( !err ) 
-              console.log(res);
-        });
-        instrument11.write("D4dvaX", function(err, res) {
-            if ( !err ) 
-              console.log(res);
-        });*/
-        instrument11.write("D4HELLOX", function(err, res) {
-            if ( !err ) 
-              console.log(res);
-        });        
-        /*
-        instrument11.query("D1X", function(err, res) {
-            if ( !err ) 
-              console.log(res);
-        });*/
-      }
+    instrument11.ibsre(true,function(err, res) { 
+  	  instrument11.clear(function(err, res) { 
+        if ( !err ) {/*
+          instrument11.write("D1X", function(err, res) {
+              if ( !err ) 
+                console.log(res);
+          });
+          instrument11.write("D4dvaX", function(err, res) {
+              if ( !err ) 
+                console.log(res);
+          });*/
+          instrument11.write("D4H1OX", function(err, res) {
+              if ( !err ) 
+                console.log('OK' + res);
+          });        
+          /*
+          instrument11.query("D1X", function(err, res) {
+              if ( !err ) 
+                console.log(res);
+          });*/
+        }
+      });
     });
   }
 });
