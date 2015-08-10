@@ -1,16 +1,3 @@
-/************************************************************
-
- NODE.JS INTERACTIVE IO
- 
-This is WEB interface for visa32test.js.
-
-Author : 7M4MON
-Date : 2015/04/24
-Licence : MIT
-
-************************************************************/
-
-
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);

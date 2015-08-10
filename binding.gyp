@@ -3,7 +3,7 @@
     {
       'target_name': 'nisa32',
       'sources': [
-        'src/nisa32c.cpp',
+        'src/nisa32c.cpp'
       ],
       'include_dirs': [
         '<!(node -e "require(\'nan\')")'
