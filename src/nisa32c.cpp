@@ -57,7 +57,7 @@ NAN_MODULE_INIT(Nisa32c::Init) {
 
 // temporarily here until it compiles
 void EIO_List(uv_work_t* req) {
-  // ListBaton* data = static_cast<ListBaton*>(req->data);
+  ListBaton* data = static_cast<ListBaton*>(req->data);
   
   char temp[100];
   ViUInt16 iManf;
@@ -70,43 +70,41 @@ void EIO_List(uv_work_t* req) {
   status = viOpenDefaultRM(&defaultRM);
   if (status < VI_SUCCESS) {
     _snprintf(temp, sizeof(temp), "LIST: Opening RM");
-    //ErrorCodeToString(temp, status, data->errorString);
+    ErrorCodeToString(temp, status, data->errorString);
     return;
   }
   
   status = viFindRsrc(defaultRM, "?*INSTR", &fList, &numInstrs, desc); 
   if (status < VI_SUCCESS) {
     _snprintf(temp, sizeof(temp), "viFindRsrc1");
-    //ErrorCodeToString(temp, status, data->errorString);
+    ErrorCodeToString(temp, status, data->errorString);
     return;
   }
   
   while (numInstrs--) {
-    
-	status = viOpen(defaultRM, desc, VI_NULL, VI_NULL, &instr);
-	if (status < VI_SUCCESS) {
-		viFindNext(fList, desc);
-		continue;
-	}
-	
-	char temp[256];
-	status = viQueryf(instr,"*IDN?\n","%s",temp);
-	if ((status < VI_SUCCESS)) {
-		viClose(instr);
-		_snprintf(temp, sizeof(temp), "");
-	}
-	if (temp[0] == 0) {
-		status = viQueryf(instr,"ID?\n","%s",temp);
-		if ((status < VI_SUCCESS)) {
-			viClose(instr);
-			_snprintf(temp, sizeof(temp), "");
-		} 
-	}
-  /*ListResultItem* resultItem = new ListResultItem();
-	resultItem->path = desc;
-	resultItem->idn = temp;
-	data->results.push_back(resultItem);*/
-	viFindNext(fList, desc);
+    status = viOpen(defaultRM, desc, VI_NULL, VI_NULL, &instr);
+    if (status < VI_SUCCESS) {
+    	viFindNext(fList, desc);
+    	continue;
+    }
+    char temp[256];
+    status = viQueryf(instr,"*IDN?\n","%s",temp);
+    if ((status < VI_SUCCESS)) {
+    	viClose(instr);
+    	_snprintf(temp, sizeof(temp), "");
+    }
+    if (temp[0] == 0) {
+    	status = viQueryf(instr,"ID?\n","%s",temp);
+    	if ((status < VI_SUCCESS)) {
+    		viClose(instr);
+    		_snprintf(temp, sizeof(temp), "");
+    	} 
+    }
+    ListResultItem* resultItem = new ListResultItem();
+    resultItem->path = desc;
+    resultItem->idn = temp;
+    data->results.push_back(resultItem);
+    viFindNext(fList, desc);
   }
   viClose(fList);
   // viClose(defaultRM);

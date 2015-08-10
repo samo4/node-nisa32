@@ -23,4 +23,13 @@ public:
   std::string idn;
 };
 
+struct ListBaton {
+public:
+  Nan::Callback callback;
+  std::list<ListResultItem*> results;
+  char errorString[ERROR_STRING_SIZE];
+};
+
+
+
 #endif
