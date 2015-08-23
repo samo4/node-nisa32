@@ -1,5 +1,8 @@
 # node-nisa32
 
+*This project was superseded by node-nisa*
+The problem was that in order to implement SRQ events, the list of all connection objects needed to be maintained.
+
 nisa32 is another prototype for using VISA  library in node.js.
 This is a wrapper for visa32.dll (in your system32 folder).
 
