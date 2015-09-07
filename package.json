@@ -1,7 +1,7 @@
 {
   "name": "node-nisa32",
-  "version": "1.0.0",
-  "description": "A simple npm module for interfacing with GPIB instruments ",
+  "version": "1.0.1",
+  "description": "A simple node.js module for interfacing with GPIB instruments. No compilation, direct usage of VISA API via FFI.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
